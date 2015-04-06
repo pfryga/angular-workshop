@@ -1,0 +1,58 @@
+<div class="order wrapper">
+  <h4>Zamawiam:</h4>
+  <form name="f" accept-charset="utf-8" ng-submit="addNewOrder(order); order = {};" novalidate>
+    <div class="form-group"
+         ng-class="{
+            'has-error' : f.firstname.$invalid && f.firstname.$dirty,
+            'has-success' : f.firstname.$valid && f.firstname.$dirty
+         }"
+    >
+      <label>Imię i nazwisko</label>
+      <input
+        class="form-control"
+        type="text"
+        name="firstname"
+        id=""
+        value=""
+        ng-pattern="/[a-zA-Z]/"
+        ng-model="order.firstname"
+        required 
+      />
+    </div>
+    <div class="form-group"
+         ng-class="{
+            'has-error' : f.street.$invalid && f.street.$dirty,
+            'has-success' : f.street.$valid && f.street.$dirty
+         }"
+    >
+      <label>Ulica</label>
+      <input
+      class="form-control"
+      type="text"
+      name="street"
+      id=""
+      value=""
+      ng-model="order.street"
+      required />
+    </div>
+    <div class="form-group"
+         ng-class="{
+            'has-error' : f.city.$invalid && f.city.$dirty,
+            'has-success' : f.city.$valid && f.city.$dirty
+         }"
+    >
+      <label>Miasto</label>
+      <input
+        class="form-control"
+        type="text"
+        name="city"
+        id=""
+        value=""
+        ng-model="order.city"
+        required />
+    </div>
+    <div class="form-group" style="text-align: right">
+      <input ng-disabled="f.$invalid" class="btn btn-primary" type="submit" name="" id="" value="wyślij" />
+    </div>
+  </form>
+</div>

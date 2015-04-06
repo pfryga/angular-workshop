@@ -1,0 +1,88 @@
+<div class="sort-row wrapper" ng-init="inserAllTags()">
+  <span>Sortowanie:</span>
+  <button ng-click="sortingSelect = 'title'" ng-class="{'btn-primary': sortingSelect.indexOf('title') !== -1 }" class="btn">
+    <span ng-show="sortingSelect === '-title'" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+    <span ng-show="sortingSelect === 'title'" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+    Nazwa
+  </button>  
+  <button ng-click="sortingSelect = 'price'" ng-class="{'btn-primary': sortingSelect.indexOf('price') !== -1 }" class="btn">Cena</button>
+  <select class="combobox" ng-model="sortingSelect">
+    <option value="price">Cena rosnąco</option>
+    <option value="-price">Cena malejąco</option>
+    <option value="title">Nazwa rosnąco</option>
+    <option value="-title">Nazwa malejąco</option>
+  </select>
+  
+  <label ng-show="sortingSelect" class="label label-info">
+    {{ sortingSelect }}  
+  </label>
+</div>
+
+<div class="filter-row wrapper">
+  <span>Filtrowanie: </span>
+  <input type="text" ng-model="filerSentence" name="" id="" value="" />
+</div>
+
+<div class="filter-tags-row wrapper">
+  <span>Tagi:</span>
+  <ul>
+    <li ng-repeat="tag in allTags">
+      <label ng-click="setCurrentTag(tag)" class="label label-primary" ng-class="{'label-success': currentTag == tag}">{{ tag }}</label>
+    </li>
+  </ul>
+  <span>Current tag: <label class="label label-success">{{ currentTag }}</label></span>
+</div>
+
+
+<basket-directive basket="basket"></basket-directive> 
+
+<div class="itunes-list">
+  <h4>Itunes Products</h4>
+  <div class="item" ng-repeat="item in itunesList">
+    <a href="#/product/{{ item.trackId }}" ng-click="setSelectedProductId($index)">
+      <img src="{{ item.artworkUrl30 }}" alt="" />
+    </a>
+    
+    <label class="label label-primary">
+      {{ item.trackPrice }} USD
+    </label>
+    <label class="label label-warning">
+      {{ item.trackPrice * dolarRate | correctCurrency }} PLN
+    </label>
+  </div>
+</div>
+
+<div class="premium wrapper">
+  <h3>Polecane produkty</h3>
+</div>
+
+<div ng-repeat="product in products |  orderBy: ['-special', sortingSelect] | filter: {'title': filerSentence, 'tags': currentTag}"
+     class="offer"
+     ng-class="{'special': product.special}"
+>
+  <div class="centered">
+    <img src="{{ product.imageUrl }}" style="max-width: 100%" alt="" />
+  </div>
+  <h3>
+    <a href="#/product/1">
+      {{ product.title }}
+    </a>
+  </h3>
+  <div class="tags" style="margin-bottom: 10px">
+    <label class="label label-info" style="margin: 0 5px 0 0" ng-repeat="tag in product.tags">
+      {{ tag }}
+    </label>
+  </div>
+  <p class="description">
+    {{ product.description | limitTo: product.textLimit }}
+  </p>
+  <div class="more" style="text-align: left">
+      <input-directive basket="basket" product="product"></input-directive>
+      <button ng-click="toggleDesc(product)" class="btn btn-primary" style="display:inline-block; float: right">More...</button>
+  </div>
+  <div class="price" style="text-align: right">
+    <label class="label label-warning">
+      {{ product.price }} USD
+     </label>
+  </div>
+</div>

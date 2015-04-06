@@ -1,0 +1,16 @@
+<div class="offer">
+  <div class="centered">
+    <img src="{{ itunesList[selectedProductId].artworkUrl100 }}" style="max-width: 100%" alt="" />
+  </div>
+  <h3>
+    {{ currentId.id }}: {{ itunesList[selectedProductId].trackName }}
+  </h3>
+  <p class="description">
+    {{ itunesList[selectedProductId].collectionName }}
+  </p>
+  <div class="price" style="text-align: right">
+    <label class="label label-warning">
+      {{ itunesList[selectedProductId].trackPrice }} USD
+     </label>
+  </div>
+</div>

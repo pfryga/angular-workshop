@@ -1,0 +1,21 @@
+<div ng-show="basket.length" class="basket wrapper">
+  <h4>Twój koszyk</h4>
+  <ul>
+    <li ng-repeat="item in basket">
+      <span class="label label-primary" style="display: inline-block">
+        {{ item.title }}    
+      </span>
+      <span class="label label-warning" style="display: inline-block">
+        {{ item.price }} PLN   
+      </span>
+    </li>
+  </ul>
+  <div class="price">
+    <span class="label label-primary" style="display: inline-block">
+      Łącznie:  
+    </span>
+    <span class="label label-warning" style="display: inline-block">
+      {{ totalPrice() }} PLN   
+    </span>
+  </div>
+</div>
